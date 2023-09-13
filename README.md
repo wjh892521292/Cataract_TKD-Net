@@ -72,7 +72,7 @@ Run student model:
 
 First, modify the checkpoint in `configs/runs/image_classifier/resnet50_transformer_distillation_label_cataract.yaml` to the ckpt path of teacher model.
 
-Then, run student model:
+Then, run the student model:
 ```bash
 CUDA_VISIBLE_DEVICES=<gpu_ids> python tools/cli.py fit --config configs/runs/image_classifier/resnet50_transformer_distillation_label_cataract.yaml
 ```
@@ -82,4 +82,4 @@ CUDA_VISIBLE_DEVICES=<gpu_ids> python tools/cli.py fit --config configs/runs/ima
 
 This research was partially supported by National Key R\&D Program of China under grant No. 2018AAA0102102, National Natural Science Foundation of China under grants No. 62176231 and No. 62106218.
 
-Many thanks for the code support of the co-authoer [Wenhao Zheng](https://github.com/shenmishajing).
+Many thanks for the code support of the co-author [Wenhao Zheng](https://github.com/shenmishajing).
