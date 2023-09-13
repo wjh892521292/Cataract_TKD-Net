@@ -1,0 +1,16 @@
+__base__: resnet50.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageTokenClassifier
+            init_args:
+                center_size: 1
+                in_channels: 2048
+                embed_dims: 512
+                num_img_token: 1
+                neck:
+                    type: AdaptiveAveragePooling
+                    pool_size: [3, 3]
+                head:
+                    in_channels: 1024

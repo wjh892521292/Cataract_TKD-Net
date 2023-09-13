@@ -1,0 +1,17 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageClassifier
+            init_args:
+                backbone:
+                    type: InceptionV3
+                    num_classes: 1000
+                    aux_logits: False
+                neck: null
+                head:
+                    type: ClsHead
+                    topk: !!python/tuple [1, 5]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0

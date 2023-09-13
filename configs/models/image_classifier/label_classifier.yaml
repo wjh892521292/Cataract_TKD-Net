@@ -1,0 +1,16 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.LabelClassifier
+            init_args:
+                head:
+                    type: StackedLinearClsHead
+                    num_classes: 1000
+                    in_channels: 2048
+                    mid_channels: [ 1024 ]
+                    topk: !!python/tuple [ 1, 5 ]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0
+                        use_sigmoid: false

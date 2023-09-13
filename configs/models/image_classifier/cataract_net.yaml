@@ -1,0 +1,19 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageClassifier
+            init_args:
+                backbone:
+                    type: CataractNet
+                head:
+                    type: StackedLinearClsHead
+                    num_classes: 1000
+                    in_channels: 18432
+                    mid_channels: [64, 128, 256]
+                    dropout_rate: 0.4
+                    topk: !!python/tuple [1, 5]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0
+                        use_sigmoid: false

@@ -1,0 +1,15 @@
+__base__:
+    - resnet50_cataract.yaml
+    - ../../models/image_classifier/resnet50_transformer_with_label.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                num_labels: 4
+                fusion_transformer_cfg:
+                    fusion_rate: 0.6
+                    transformer_cfg:
+                        num_patches: 6
+                head:
+                    num_classes: 7

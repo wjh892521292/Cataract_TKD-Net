@@ -1,0 +1,39 @@
+__base__:
+    - ../../default_runtime.yaml
+    - ../../models/image_classifier/vittinywithoutposembedding_transformer_with_label.yaml
+    - ../../datasets/cataract/cataract_classification.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                num_labels: 4
+                fusion_transformer_cfg:
+                    fusion_rate: 0.6
+                    transformer_cfg:
+                        num_patches: 6
+                head:
+                    num_classes: 7
+
+optimizer_config:
+    optimizer:
+        class_path: torch.optim.SGD
+        init_args:
+            lr: 1e-2
+    lr_scheduler:
+        scheduler:
+            class_path: torch.optim.lr_scheduler.MultiStepLR
+            init_args:
+                milestones: [12, 24, 36]
+        warmup_config:
+            warmup_iters: 50
+
+trainer:
+    max_epochs: 40
+
+data:
+    init_args:
+        data_loader_config:
+            batch_size: 16
+            num_workers: 8
+            prefetch_factor: 2

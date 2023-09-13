@@ -1,0 +1,11 @@
+__base__: resnet50.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                backbone:
+                    type: ResNet
+                    depth: 101
+                    init_cfg:
+                        checkpoint: torchvision://resnet101

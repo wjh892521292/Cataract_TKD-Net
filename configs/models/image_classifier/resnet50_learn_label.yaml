@@ -1,0 +1,21 @@
+__base__: resnet50_with_label.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageLearnLabelClassifier
+            init_args:
+                neck: null
+                label_loss:
+                    type: CrossEntropyLoss
+                    loss_weight: 0.1
+                label_configs:
+                    -   num_classes: 5
+                    -   num_classes: 5
+                    -   num_classes: 4
+                    -   num_classes: 5
+                        center_feature: false
+                    -   num_classes: 5
+                        center_feature: false
+                    -   num_classes: 4
+                        center_feature: false

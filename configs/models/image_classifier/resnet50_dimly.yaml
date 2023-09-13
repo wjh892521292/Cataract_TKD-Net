@@ -1,0 +1,16 @@
+__base__: resnet50.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageDimlyClassifier
+            init_args:
+                dimly_head:
+                    type: LinearClsHead
+                    num_classes: 1000
+                    in_channels: 2048
+                    topk: !!python/tuple [ 1, 5 ]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0
+                        use_sigmoid: true

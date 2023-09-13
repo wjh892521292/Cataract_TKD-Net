@@ -1,0 +1,6 @@
+__base__: resnet50_transformer.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageTransformerWithLabelClassifier

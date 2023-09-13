@@ -1,0 +1,10 @@
+__base__: resnet18.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                head:
+                    loss:
+                        type: FocalLoss
+                        loss_weight: 1.0

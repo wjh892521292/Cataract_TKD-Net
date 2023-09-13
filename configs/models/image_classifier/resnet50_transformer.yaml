@@ -1,0 +1,18 @@
+__base__: resnet50_token.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageTransformerClassifier
+            init_args:
+                __delete__: embed_dims
+                in_channels: 512
+                num_img_token: 4
+                head:
+                    in_channels: 384
+                fusion_transformer_cfg:
+                    num_transformer: 2
+                    fusion_rate: 0.6
+                    transformer_cfg:
+                        arch: deit-t
+                        num_patches: 4

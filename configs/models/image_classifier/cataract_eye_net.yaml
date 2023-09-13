@@ -1,0 +1,23 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageClassifier
+            init_args:
+                backbone:
+                    type: VGG
+                    depth: 19
+                    init_cfg:
+                        checkpoint: torchvision://vgg19
+                        type: Pretrained
+                neck:
+                    type: CataractEyeNet
+                    in_channels: 512
+                    num_classes: 1000
+                head:
+                    type: ClsHead
+                    topk: !!python/tuple [1, 5]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0
+                        use_sigmoid: false

@@ -1,0 +1,19 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageClassifier
+            init_args:
+                backbone:
+                    type: DenseNet
+                    arch: "121"
+                neck:
+                    type: GlobalAveragePooling
+                head:
+                    type: LinearClsHead
+                    num_classes: 1000
+                    in_channels: 1024
+                    topk: !!python/tuple [1, 5]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0

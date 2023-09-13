@@ -1,0 +1,26 @@
+__base__: resnet50_transformer.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageTransformerMaeLearnLabelClassifier
+            init_args:
+                decoder_transformer_cfg:
+                    num_transformer: 2
+                    transformer_cfg:
+                        arch: deit-t
+                        num_patches: 4
+                label_configs:
+                    default:
+                        type: LinearClsHead
+                        in_channels: 192
+                        topk: !!python/tuple [ 1, 5 ]
+                        loss:
+                            type: CrossEntropyLoss
+                            loss_weight: 1.0
+                            use_sigmoid: false
+                    configs:
+                        -   num_classes: 5
+                        -   num_classes: 4
+                        -   num_classes: 5
+                        -   num_classes: 4

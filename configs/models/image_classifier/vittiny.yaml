@@ -1,0 +1,26 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageClassifier
+            init_args:
+                backbone:
+                    type: VisionTransformer
+                    arch: deit-t
+                    img_size: 224
+                    patch_size: 16
+                    drop_rate: 0.1
+                    init_cfg:
+                        type: Kaiming
+                        layer: Conv2d
+                        mode: fan_in
+                        nonlinearity: linear
+                neck: null
+                head:
+                    type: VisionTransformerClsHead
+                    num_classes: 1000
+                    in_channels: 192
+                    topk: !!python/tuple [1, 5]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0

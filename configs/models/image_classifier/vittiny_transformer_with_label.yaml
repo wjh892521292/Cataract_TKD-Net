@@ -1,0 +1,20 @@
+__base__: resnet50_transformer_with_label.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                in_channels: 48
+                backbone:
+                    __delete__: true
+                    type: VisionTransformer
+                    arch: deit-t
+                    img_size: 224
+                    patch_size: 16
+                    drop_rate: 0.1
+                    output_cls_token: false
+                    init_cfg:
+                        type: Kaiming
+                        layer: Conv2d
+                        mode: fan_in
+                        nonlinearity: linear

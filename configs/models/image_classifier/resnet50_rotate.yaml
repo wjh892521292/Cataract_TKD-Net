@@ -1,0 +1,16 @@
+__base__: resnet50.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.RotateImageClassifier
+            init_args:
+                rotate_head:
+                    type: LinearClsHead
+                    num_classes: 4
+                    in_channels: 2048
+                    topk: !!python/tuple [ 1, 5 ]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0
+                        use_sigmoid: false

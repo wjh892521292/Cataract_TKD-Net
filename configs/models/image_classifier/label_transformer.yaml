@@ -1,0 +1,20 @@
+model:
+    class_path: models.models.mmclassifiers.MMClsModelAdapter
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.LabelTransformerClassifier
+            init_args:
+                head:
+                    type: LinearClsHead
+                    num_classes: 1000
+                    in_channels: 384
+                    topk: !!python/tuple [ 1, 5 ]
+                    loss:
+                        type: CrossEntropyLoss
+                        loss_weight: 1.0
+                        use_sigmoid: false
+                fusion_transformer_cfg:
+                    num_transformer: 2
+                    transformer_cfg:
+                        arch: deit-t
+                        num_patches: 2

@@ -1,0 +1,21 @@
+__base__:
+    - resnet50_transformer_cataract.yaml
+    - ../../models/image_classifier/resnet50_transformer_distillation_label.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                head:
+                    num_classes: 7
+                teacher_classifier:
+                    init_args:
+                        init_cfg:
+                            checkpoint: work_dirs/resnet50_transformer_with_label_cataract/20221212_162219/checkpoints/best.ckpt
+                        num_labels: 4
+                        fusion_transformer_cfg:
+                            fusion_rate: 0.6
+                            transformer_cfg:
+                                num_patches: 6
+                        head:
+                            num_classes: 7

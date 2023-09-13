@@ -1,0 +1,59 @@
+data:
+    class_path: datasets.MMDetDataSetAdapter
+    init_args:
+        dataset_cfg:
+            type: CataractDataSet
+            pipeline:
+                -   type: LoadImageFromFile
+                    color_type: color
+                -   type: GenSmoothLabel
+                    num_classes: 7
+                    pow: 2
+                -   type: GenDimlyLabel
+                    num_classes: 7
+                -   type: Resize
+                    size: !!python/tuple [ 224, 224 ]
+                -   type: RandomFlip
+                    flip_prob: 0.5
+                -   type: Normalize
+                    mean: [ 74.70364379882812, 77.83037567138672, 79.49059295654297 ]
+                    std: [ 40.09847640991211, 36.859676361083984, 37.57963180541992 ]
+                    to_rgb: true
+                -   type: GenRotateImage
+                -   type: ImageToTensor
+                    keys: [ img ]
+                -   type: ToTensor
+                    keys:
+                        - img_rotate
+                        - label
+                        - gt_label
+                        - gt_smooth_label
+                        - gt_dimly_label
+                -   type: Collect
+                    keys:
+                        - img
+                        - img_rotate
+                        - label
+                        - gt_label
+                        - gt_smooth_label
+                        - gt_dimly_label
+            data_prefix: data/cataract/ROI/crop_region_t
+            ann_file: data/cataract/output_stratified/${split}.csv
+            label_indices: [ 0, 2, 3, 5 ]
+        split_name_map:
+            test: val
+            predict: val
+        data_loader_config:
+            batch_size: 32
+            num_workers: 8
+            prefetch_factor: 2
+            pin_memory: true
+
+trainer:
+    callbacks:
+        change_item:
+            -   - -1
+                -   init_args:
+                        monitor: acc
+                        filename: 'epoch:{epoch}-acc:{acc:.4g}'
+                        mode: max

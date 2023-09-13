@@ -1,0 +1,26 @@
+__base__: resnet50_transformer.yaml
+
+model:
+    init_args:
+        model:
+            class_path: models.models.mmclassifiers.ImageTransformerDistillationLabelClassifier
+            init_args:
+                distillation_loss:
+                    cls_token:
+                        type: SmoothL1Loss
+                        loss_weight: 1.0
+                    label:
+                        type: SmoothL1Loss
+                        loss_weight: 1.0
+                teacher_classifier:
+                    class_path: models.models.mmclassifiers.ImageTransformerDistillationLabelTeacherClassifier
+                    init_args:
+                        __base__:
+                            - [
+                                  resnet50_transformer_with_label.yaml,
+                                  model.init_args.model.init_args,
+                              ]
+                        init_cfg:
+                            checkpoint: work_dirs/resnet50_transformer_with_label_cataract/20221212_160034/checkpoints/best.ckpt
+                            type: Pretrained
+                            prefix: model

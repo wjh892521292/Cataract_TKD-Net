@@ -1,0 +1,10 @@
+__base__:
+    - resnet50_cataract.yaml
+    - ../../models/image_classifier/resnet50_transformer.yaml
+
+model:
+    init_args:
+        model:
+            init_args:
+                head:
+                    num_classes: 7
