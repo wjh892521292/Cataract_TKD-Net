@@ -77,7 +77,7 @@ Then, run student model:
 CUDA_VISIBLE_DEVICES=<gpu_ids> python tools/cli.py fit --config configs/runs/image_classifier/resnet50_transformer_distillation_label_cataract.yaml
 ```
 
-#### Acknowledgement. ####
+## Acknowledgement ##
 
 
 This research was partially supported by National Key R\&D Program of China under grant No. 2018AAA0102102, National Natural Science Foundation of China under grants No. 62176231 and No. 62106218.
